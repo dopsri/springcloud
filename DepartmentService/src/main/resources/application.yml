@@ -1,0 +1,83 @@
+spring:
+  application:
+    name: department-service
+  datasource:    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  jpa:    database-platform: org.hibernate.dialect.H2Dialect
+
+server:  port: 8010
+  
+eureka:
+  instance:
+    appname: department-service
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:      
+      defaultZone: http://my-eureka-server-in.com:9001/eureka/
+      
+---
+
+spring:
+  profiles: r1
+
+eureka:
+  instance:
+    appname: department-service
+  client:
+    fetch-registry: true
+    service-url:
+      defaultZone: http://my-eureka-server-in.com:9001/eureka/
+
+server:
+  port: 8011
+  
+---
+
+spring:
+  profiles: r2
+
+eureka:
+  instance:
+    appname: department-service
+  client:
+    fetch-registry: true
+    service-url:
+      defaultZone: http://my-eureka-server-in.com:9001/eureka/
+
+server:
+  port: 8012
+  
+---
+
+spring:
+  profiles: r3
+
+eureka:
+  instance:
+    appname: department-service
+  client:
+    fetch-registry: true
+    service-url:
+      defaultZone: http://my-eureka-server-us.com:9002/eureka/
+
+server:
+  port: 8013
+  
+---
+
+spring:
+  profiles: r4
+
+eureka:
+  instance:
+    appname: department-service
+  client:
+    fetch-registry: true
+    service-url:
+      defaultZone: http://my-eureka-server-uk.com:9003/eureka/
+
+server:
+  port: 8014      

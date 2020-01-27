@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: employee-service
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+server:
+  port: 8022
+  
+eureka:
+  instance:
+    hostname: my-eureka-server-in.com
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:      
+      defaultZone: http://my-eureka-server-in.com:9001/eureka/

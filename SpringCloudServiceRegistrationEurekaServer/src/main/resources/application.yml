@@ -1,0 +1,81 @@
+es:
+  default:
+    hostname: my-eureka-server.com
+    port: 9000
+  in:
+    hostname: my-eureka-server-in.com
+    port: 9001
+  us:
+    hostname: my-eureka-server-us.com
+    port: 9002
+  uk:
+    hostname: my-eureka-server-uk.com
+    port: 9003
+
+---
+
+spring:
+  profiles: default
+server:
+  port: ${es.default.port}
+eureka:
+  instance:
+    hostname: ${es.default.hostname}
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:      
+      defaultZone: http://${es.default.hostname}:${es.default.port}/eureka/
+
+---    
+
+spring:
+  profiles: in
+  application:
+    name: eureka-server-clustered
+server:
+  port: ${es.in.port}
+eureka:
+  instance:
+    hostname: ${es.in.hostname}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:      
+      defaultZone: http://${es.us.hostname}:${es.us.port}/eureka/,http://${es.uk.hostname}:${es.uk.port}/eureka/
+      
+---    
+
+spring:
+  profiles: us
+  application:
+    name: eureka-server-clustered
+server:
+  port: ${es.us.port}
+eureka:
+  instance:
+    hostname: ${es.us.hostname}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:      
+      defaultZone: http://${es.in.hostname}:${es.in.port}/eureka/,http://${es.uk.hostname}:${es.uk.port}/eureka/
+      
+---    
+
+spring:
+  profiles: uk
+  application:
+    name: eureka-server-clustered
+server:
+  port: ${es.uk.port}
+eureka:
+  instance:
+    hostname: ${es.uk.hostname}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:      
+      defaultZone: http://${es.in.hostname}:${es.in.port}/eureka/,http://${es.us.hostname}:${es.us.port}/eureka/
+      
+      
